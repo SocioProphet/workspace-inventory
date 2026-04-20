@@ -26,10 +26,35 @@
           "name": {
             "type": "string"
           },
+          "org": {
+            "type": "string"
+          },
           "kind": {
             "type": "string"
           },
           "manifest": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "candidate", "held", "deprecated"]
+          },
+          "authority_role": {
+            "type": "string"
+          },
+          "boundary_notes": {
+            "type": "string"
+          },
+          "related_repos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_layer": {
+            "type": "boolean"
+          },
+          "canonical_source_ref": {
             "type": "string"
           },
           "provides": {
@@ -39,6 +64,12 @@
             }
           }
         }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
       }
     }
   }
