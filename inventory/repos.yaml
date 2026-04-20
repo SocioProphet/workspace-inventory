@@ -1,34 +1,234 @@
 workspace_inventory_version: 1
-org: socioprophet
+org: SocioProphet
 repos:
   - name: socioprophet
     kind: monorepo
     manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: public_surface
+    boundary_notes: "Customer-facing web/api umbrella and integration workspace, not the canonical standards or execution control plane."
     provides:
       - web_portal
       - api
       - mcp_servers
+
+  - name: workspace-inventory
+    kind: tool
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: repository_index
+    boundary_notes: "Canonical ecosystem repo index and validation entrypoint."
+    related_repos:
+      - sociosphere
+    provides:
+      - repo_index
+      - inventory_validation
+
+  - name: sociosphere
+    kind: workspace-controller
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: workspace_controller
+    boundary_notes: "Canonical workspace manifest + lock, runner semantics, and deterministic multi-repo materialization."
+    related_repos:
+      - workspace-inventory
+      - agentplane
+      - sourceos-spec
+    canonical_source_ref: "sociosphere/governance/CANONICAL_SOURCES.yaml"
+    provides:
+      - workspace_manifest
+      - workspace_lock
+      - runner_semantics
+
+  - name: agentplane
+    kind: execution-plane
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: execution_control_plane
+    boundary_notes: "Bundle validate/place/run/evidence/replay control plane; not canonical schema or substrate authority."
+    related_repos:
+      - sociosphere
+      - sourceos-spec
+    canonical_source_ref: "protocol/execution"
+    provides:
+      - bundle_execution
+      - evidence_artifacts
+      - replay
+
+  - name: prophet-platform
+    kind: component
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: platform_runtime
+    boundary_notes: "Thin runtime/deployment monorepo for platform lanes; normative standards remain upstream."
+    related_repos:
+      - socioprophet-standards-storage
+      - socioprophet-standards-knowledge
+    provides:
+      - platform_apps
+      - contracts
+      - telemetry
+
+  - name: prophet-core-catalog
+    kind: catalog
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: provenance_catalog_seed
+    boundary_notes: "Auditable provenance-first catalog seed; deeper catalog authority must stay aligned with broader GAIA/catalog ownership."
+    related_repos:
+      - gaia-world-model
+      - socioprophet-standards-storage
+    optional_layer: true
+    provides:
+      - catalog
+      - provenance_index
+
   - name: ontogenesis
     kind: ontology
     manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: ontology_authority
+    boundary_notes: "Ontology genesis, binding, validation, and semantic substrate."
     provides:
       - capd:ontogenesis
-  - name: prophet-cli
-    kind: cli
+
+  - name: socioprophet-standards-storage
+    kind: standards
     manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: standards_storage
+    boundary_notes: "Canonical normative standards package for storage, evidence, and control-plane guidance."
+    canonical_source_ref: "standards/storage"
     provides:
-      - cli:prophet
+      - schemas
+      - evidence_contracts
+      - control_plane_standards
+
+  - name: socioprophet-standards-knowledge
+    kind: standards
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: knowledge_context_standards
+    boundary_notes: "Executable knowledge-context standards, fixtures, verifiers, and transport bindings."
+    canonical_source_ref: "standards/knowledge"
+    related_repos:
+      - tritrpc
+      - socioprophet-standards-storage
+    provides:
+      - knowledge_schemas
+      - tritrpc_bindings
+      - roundtrip_verifiers
+
+  - name: tritrpc
+    kind: protocol
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: transport_protocol
+    boundary_notes: "Canonical deterministic transport/envelope/framing authority."
+    canonical_source_ref: "protocol/tritrpc"
+    provides:
+      - transport
+      - fixtures
+      - framing
+
   - name: sourceos-a2a-mcp-bootstrap
     kind: bootstrap
     manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: identity_bootstrap
+    boundary_notes: "Bootstrap and carrier verification surface for A2A/MCP zero-trust lanes."
     provides:
       - carrier_verify
+
   - name: human-digital-twin
     kind: service
     manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: hdt_consumer
+    boundary_notes: "Human digital twin runtime and policy consumer surface."
     provides:
       - api:hdt
       - opa:policies
       - tritrpc:devine
+
+  - name: cloudshell-fog
+    kind: operator-surface
+    manifest: "WORKSPACE.yaml"
+    status: held
+    authority_role: hmi_gateway
+    boundary_notes: "Operator/HMI gateway surface; treat as client surface while broader dedup/archive decisions remain open."
+    optional_layer: true
+    related_repos:
+      - agentplane
+      - prophet-platform
+    canonical_source_ref: "dedup/cloudshell"
+    provides:
+      - cloud_shell
+      - operator_gateway
+
+  - name: SourceOS
+    org: SociOS-Linux
+    kind: os-substrate
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: immutable_substrate
+    boundary_notes: "Immutable local-first OS substrate; substrate rather than builder."
+    related_repos:
+      - socios
+      - workstation-contracts
+      - sourceos-spec
+    provides:
+      - substrate
+      - truth_plane
+
+  - name: socios
+    org: SociOS-Linux
+    kind: automation
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: automation_commons
+    boundary_notes: "Opt-in automation commons for SourceOS; off by default and never a required substrate dependency."
+    related_repos:
+      - SourceOS
+      - workstation-contracts
+      - sourceos-spec
+      - sociosphere
+    optional_layer: true
+    provides:
+      - ci_cd
+      - build_automation
+      - catalogs
+      - signatures
+
+  - name: workstation-contracts
+    org: SociOS-Linux
+    kind: contract
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: workstation_ci_contracts
+    boundary_notes: "Stable workstation/CI contract and conformance lane; not the runner or image builder."
+    related_repos:
+      - SourceOS
+      - socios
+      - sociosphere
+      - sourceos-spec
+    provides:
+      - lane_contracts
+      - conformance
+
+  - name: sourceos-spec
+    org: SourceOS-Linux
+    kind: typed-contracts
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: typed_contract_authority
+    boundary_notes: "Canonical machine-readable SourceOS/SociOS contract layer, including additive agent-plane and fog-plane families."
+    provides:
+      - json_schemas
+      - openapi_patches
+      - asyncapi_patches
+      - semantic_overlay
+
 notes:
   - "Hyperswarm upstream bundles should be tracked as upstream references, not copied."
+  - "Cross-org authorities are included when they are canonical to the same SourceOS/SociOS effort."
