@@ -17,19 +17,52 @@ repos:
     manifest: "WORKSPACE.yaml"
     status: active
     authority_role: repository_index
-    boundary_notes: "Canonical ecosystem repo index and validation entrypoint."
+    boundary_notes: "Canonical ecosystem repo index, estate-ledger authority, and validation entrypoint."
     related_repos:
       - sociosphere
     provides:
       - repo_index
       - inventory_validation
+      - estate_ledger
+    estate:
+      owner_plane: workspace_inventory
+      authority_surface: docs/estate-ledger-v0.md
+      doctrine_state: draft
+      validation_state: local
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after major recovery tranches
+    recovery:
+      recovered_threads:
+        - workspace-inventory estate ledger
+      disposition: owner_repo_assigned
+      authority_artifact: docs/estate-ledger-v0.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes: []
+      consumed_by:
+        - sociosphere
+      adoption_state: partial
+      compatibility_ref: docs/estate-ledger-v0.md
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: tools/validate_inventory.py
+      release_gate: ""
+      known_gap: validator performs minimal structure checks only
+    drift:
+      risk: medium
+      review_cadence: after major recovery tranches
+      review_trigger: recovery map, authority roles, or schema fields change
+      last_reviewed: "2026-05-30"
 
   - name: sociosphere
     kind: workspace-controller
     manifest: "WORKSPACE.yaml"
     status: active
     authority_role: workspace_controller
-    boundary_notes: "Canonical workspace manifest + lock, runner semantics, and deterministic multi-repo materialization."
+    boundary_notes: "Canonical workspace manifest + lock, runner semantics, deterministic multi-repo materialization, and cross-repo recovery coordination."
     related_repos:
       - workspace-inventory
       - agentplane
@@ -39,6 +72,40 @@ repos:
       - workspace_manifest
       - workspace_lock
       - runner_semantics
+      - lost_work_recovery_map
+    estate:
+      owner_plane: sociosphere
+      authority_surface: docs/strategy/lost-work-recovery-map.md
+      doctrine_state: provisional
+      validation_state: unknown
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after each recovery item completion
+    recovery:
+      recovered_threads:
+        - lost work recovery map
+      disposition: owner_repo_assigned
+      authority_artifact: docs/strategy/lost-work-recovery-map.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes:
+        - workspace-inventory estate ledger
+      consumed_by:
+        - systems-learning-loops
+      adoption_state: partial
+      compatibility_ref: docs/strategy/lost-work-recovery-map.md
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: ""
+      release_gate: ""
+      known_gap: recovery map is document-backed and not yet projected from workspace-inventory
+    drift:
+      risk: medium
+      review_cadence: after each recovery item completion
+      review_trigger: recovered thread lacks owner repo or authority artifact
+      last_reviewed: "2026-05-30"
 
   - name: agentplane
     kind: execution-plane
@@ -88,9 +155,49 @@ repos:
     manifest: "WORKSPACE.yaml"
     status: active
     authority_role: ontology_authority
-    boundary_notes: "Ontology genesis, binding, validation, and semantic substrate."
+    boundary_notes: "Ontology genesis, binding, validation, and semantic substrate; current authority for DoNotLearn/DoNotLink and governed memory representation strata."
     provides:
       - capd:ontogenesis
+      - governed_intelligence_semantics
+      - privacy_nonlinkability_doctrine
+      - memory_representation_strata
+    estate:
+      owner_plane: ontogenesis
+      authority_surface: docs/specs/privacy-nonlinkability-doctrine-v0.md; docs/specs/governed-memory-representation-strata-v0.md
+      doctrine_state: provisional
+      validation_state: local
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after downstream policy/platform adoption
+    recovery:
+      recovered_threads:
+        - DoNotLearn / DoNotLink privacy doctrine
+        - governed memory representation strata
+      disposition: owner_repo_assigned
+      authority_artifact: docs/specs/privacy-nonlinkability-doctrine-v0.md; docs/specs/governed-memory-representation-strata-v0.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes: []
+      consumed_by:
+        - policy-fabric
+        - guardrail-fabric
+        - prophet-platform
+        - model-governance-ledger
+        - agentplane
+      adoption_state: planned
+      compatibility_ref: catalog/governed_intelligence_registry.ttl
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: make validate
+      release_gate: ""
+      known_gap: downstream enforcement remains in consuming policy/runtime repos
+    drift:
+      risk: medium
+      review_cadence: after downstream adoption begins
+      review_trigger: privacy or memory doctrines gain runtime enforcement or schema changes
+      last_reviewed: "2026-05-30"
 
   - name: socioprophet-standards-storage
     kind: standards
@@ -258,177 +365,3 @@ repos:
     status: active
     authority_role: trusted_terminal_workbench
     boundary_notes: "Policy-aware, agent-addressable terminal workbench for trusted command execution, terminal receipts, delegation, and reproducible operator workflows."
-    related_repos:
-      - agent-term
-      - sourceos-devtools
-      - agent-machine
-      - agentplane
-      - policy-fabric
-    canonical_source_ref: "sourceos/operator/turtleterm"
-    provides:
-      - trusted_terminal
-      - terminal_receipts
-      - agent_gateway
-      - skill_manifests
-
-  - name: BearBrowser
-    org: SourceOS-Linux
-    kind: browser-runtime
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: governed_browser_runtime
-    boundary_notes: "LibreWolf-derived SourceOS browser product for human secure browsing and governed browser-agent execution; product overlays live here while upstream source mirroring stays clean."
-    related_repos:
-      - librewolf-source-mirror
-      - browser-use
-      - agentplane
-      - policy-fabric
-      - sourceos-shell
-    canonical_source_ref: "sourceos/browser/bearbrowser"
-    provides:
-      - human_secure_browser
-      - agent_browser_runtime
-      - browser_policy_profiles
-      - browser_automation_surface
-
-  - name: agent-term
-    org: SourceOS-Linux
-    kind: chatops-console
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: terminal_native_operator_console
-    boundary_notes: "Matrix-first terminal-native ChatOps console and event log for human operators, agents, GitHub, CI, MCP tools, Policy Fabric, AgentPlane, Sociosphere, and SourceOS services."
-    related_repos:
-      - agent-registry
-      - sociosphere
-      - policy-fabric
-      - agentplane
-      - memory-mesh-upstream
-      - sherlock-search
-      - holmes
-    canonical_source_ref: "sourceos/operator/agent-term"
-    provides:
-      - matrix_chatops
-      - operator_event_log
-      - approval_threads
-      - agent_participant_registry
-
-  - name: sourceos-devtools
-    org: SourceOS-Linux
-    kind: developer-operator-toolkit
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: sourceosctl_operator_cli
-    boundary_notes: "Installable SourceOS developer/operator CLI surface; read-only and dry-run by default, with local mutation requiring explicit --execute --policy-ok and evidence emission."
-    related_repos:
-      - sourceos-spec
-      - sourceos-model-carry
-      - agent-machine
-      - TurtleTerm
-      - BearBrowser
-      - model-router
-      - guardrail-fabric
-    canonical_source_ref: "sourceos/operator/sourceosctl"
-    provides:
-      - sourceosctl
-      - dry_run_plans
-      - evidence_inspection
-      - guarded_local_execution
-
-  - name: sourceos-model-carry
-    org: SourceOS-Linux
-    kind: model-carry
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: on_device_ai_service_carry
-    boundary_notes: "On-device carriage layer for governed AI service clients, launch profiles, signed model references, cache policy, fallback references, ReleaseSet and BootReleaseSet bindings, and evidence collectors."
-    related_repos:
-      - model-router
-      - model-governance-ledger
-      - guardrail-fabric
-      - sourceos-spec
-      - sourceos-boot
-      - agent-machine
-    canonical_source_ref: "sourceos/model-carry"
-    provides:
-      - signed_model_refs
-      - local_model_profiles
-      - model_cache_policy
-      - boot_release_bindings
-
-  - name: homebrew-tap
-    org: SourceOS-Linux
-    kind: distribution
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: sourceos_homebrew_distribution
-    boundary_notes: "SourceOS Homebrew tap for first-class install surfaces such as TurtleTerm, BearBrowser, Agent Machine, and SourceOS developer tools."
-    related_repos:
-      - TurtleTerm
-      - BearBrowser
-      - agent-machine
-      - sourceos-devtools
-    canonical_source_ref: "sourceos/distribution/homebrew"
-    provides:
-      - homebrew_formulae
-      - install_surface
-
-  - name: librewolf-source-mirror
-    org: SourceOS-Linux
-    kind: upstream-mirror
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: browser_upstream_mirror
-    boundary_notes: "Clean LibreWolf source mirror. SourceOS product behavior, profiles, policy overlays, and agent runtime contracts must remain in BearBrowser."
-    related_repos:
-      - BearBrowser
-    optional_layer: true
-    canonical_source_ref: "sourceos/browser/upstream-mirror"
-    provides:
-      - upstream_browser_source
-      - browser_build_reference
-
-  - name: HolographMe
-    kind: human-digital-twin
-    manifest: "WORKSPACE.yaml"
-    status: active
-    authority_role: self_owned_human_twin_governance
-    boundary_notes: "Self-owned human digital twin governance layer for capability, reputation, preferences, credentials, work proofs, consent-scoped projections, and delegated agent permissions."
-    related_repos:
-      - human-digital-twin
-      - agent-registry
-      - policy-fabric
-      - model-governance-ledger
-      - alexandrian-academy
-    canonical_source_ref: "holographme/human-twin-governance"
-    provides:
-      - human_twin_governance
-      - consent_policy
-      - capability_graph
-      - mission_fit_projection
-
-  - name: smart-tree
-    kind: inspection-tool
-    manifest: "WORKSPACE.yaml"
-    status: candidate
-    authority_role: ai_friendly_repo_tree_inspection
-    boundary_notes: "Fast AI-friendly directory visualization, security scanning, compression, MCP, and memory/context tooling. Treat as candidate/semi-trusted until supply-chain, MCP hook, and memory behaviors pass governance review."
-    related_repos:
-      - workspace-inventory
-      - sociosphere
-      - guardrail-fabric
-      - sourceos-devtools
-    optional_layer: true
-    canonical_source_ref: "candidate/tools/smart-tree"
-    provides:
-      - repo_tree_inspection
-      - mcp_tooling
-      - security_scan
-      - context_compression
-
-notes:
-  - "Hyperswarm upstream bundles should be tracked as upstream references, not copied."
-  - "Cross-org authorities are included when they are canonical to the same SourceOS/SociOS effort."
-  - "Prophet Intelligence Foundry is a first-class program plane and should be represented by a dedicated canonical repository or explicitly housed under prophet-platform-fabric-mlops-ts-suite until promoted."
-  - "Recent SourceOS operator/runtime repos are first-class active surfaces, not demos: agent-machine, TurtleTerm, BearBrowser, agent-term, sourceos-devtools, homebrew-tap, and librewolf-source-mirror."
-  - "smart-tree is useful but remains candidate/semi-trusted until its MCP, hook, and memory surfaces are audited under guardrail-fabric and policy-fabric."
