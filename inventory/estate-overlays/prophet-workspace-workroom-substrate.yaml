@@ -1,0 +1,99 @@
+overlay_version: 1
+status: draft
+authority_repo: SocioProphet/workspace-inventory
+subject_repo: SocioProphet/prophet-workspace
+created: "2026-05-30"
+
+purpose: >-
+  Estate-ledger overlay for the Prophet Workspace workroom-substrate alignment
+  tranche. This overlay avoids rewriting the full repo inventory while preserving
+  authority, recovery, adoption, validation, and drift state for the newly
+  updated workroom contract surface.
+
+repo:
+  name: prophet-workspace
+  kind: workspace-product
+  manifest: WORKSPACE.yaml
+  status: active
+  authority_role: workspace_product_semantics
+  boundary_notes: >-
+    Workspace product semantics and UX contract authority for Professional
+    Workrooms and open workspace surfaces. Runtime deployment and service
+    composition remain in SocioProphet/prophet-platform.
+  related_repos:
+    - prophet-platform
+    - sociosphere
+    - ontogenesis
+    - slash-topics
+    - speechlab
+    - agentplane
+    - agent-registry
+    - model-governance-ledger
+    - systems-learning-loops
+  provides:
+    - professional_workroom_contract
+    - workroom_substrate_alignment
+    - workspace_product_semantics
+    - recovered_substrate_refs
+
+estate:
+  owner_plane: prophet_workspace
+  authority_surface: docs/workroom-substrate-alignment-v0.md
+  doctrine_state: provisional
+  validation_state: ci
+  adoption_state: partial
+  drift_risk: medium
+  review_cadence: before runtime/platform implementation deepens
+
+recovery:
+  recovered_threads:
+    - Prophet Workspace / Professional Workroom substrate alignment
+  disposition: owner_repo_assigned
+  authority_artifact: >-
+    docs/workroom-substrate-alignment-v0.md;
+    contracts/workspace/professional-workroom.schema.json;
+    contracts/workspace/professional-workroom.v0.1.example.json;
+    tools/validate_professional_workrooms.py
+  tracking_ref: SocioProphet/sociosphere#408
+  return_condition: ""
+
+adoption:
+  consumes:
+    - ontogenesis DoNotLearn / DoNotLink doctrine
+    - ontogenesis governed memory representation strata
+    - slash-topics governed topic-pack membrane
+    - speechlab audio-first review runtime contract
+    - agentplane execution evidence and replay semantics
+    - model-governance-ledger receipt discipline
+    - systems-learning-loops learning receipt discipline
+    - workspace-inventory estate-ledger state
+  consumed_by:
+    - prophet-platform
+    - sociosphere
+    - socioprophet
+  adoption_state: partial
+  compatibility_ref: docs/workroom-substrate-alignment-v0.md
+  dependency_pin: ""
+
+validation:
+  ci_ref: .github/workflows/professional-workrooms.yml
+  local_validator: python3 tools/validate_professional_workrooms.py
+  release_gate: ""
+  known_gap: >-
+    Contract, example, validator, README, and workflow are updated. Runtime,
+    UI, platform deployment, and downstream service integrations remain future
+    work.
+
+drift:
+  risk: medium
+  review_cadence: before runtime/platform implementation deepens
+  review_trigger: >-
+    Professional Workroom schema, recovered substrate refs, runtime workroom
+    services, topic-pack integration, memory behavior, audio review integration,
+    or policy/adoption telemetry changes.
+  last_reviewed: "2026-05-30"
+
+claim_boundary: >-
+  This overlay records estate-governance state for the Prophet Workspace
+  workroom-substrate tranche. It does not claim product readiness, runtime
+  deployment, UI completion, policy enforcement, or downstream integration.
