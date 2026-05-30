@@ -62,6 +62,93 @@
             "items": {
               "type": "string"
             }
+          },
+          "estate": {
+            "type": "object",
+            "properties": {
+              "owner_plane": { "type": "string" },
+              "authority_surface": { "type": "string" },
+              "doctrine_state": {
+                "type": "string",
+                "enum": ["none", "draft", "provisional", "admitted", "superseded", "deprecated"]
+              },
+              "validation_state": {
+                "type": "string",
+                "enum": ["unknown", "none", "local", "ci", "release_gate"]
+              },
+              "adoption_state": {
+                "type": "string",
+                "enum": ["none", "planned", "partial", "active", "mature", "deprecated"]
+              },
+              "drift_risk": {
+                "type": "string",
+                "enum": ["low", "medium", "high", "unknown"]
+              },
+              "review_cadence": { "type": "string" }
+            }
+          },
+          "recovery": {
+            "type": "object",
+            "properties": {
+              "recovered_threads": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "disposition": {
+                "type": "string",
+                "enum": [
+                  "owner_repo_assigned",
+                  "archive_only",
+                  "frozen_with_return_condition",
+                  "intentionally_not_pursued",
+                  "blocked",
+                  "superseded"
+                ]
+              },
+              "authority_artifact": { "type": "string" },
+              "tracking_ref": { "type": "string" },
+              "return_condition": { "type": "string" }
+            }
+          },
+          "adoption": {
+            "type": "object",
+            "properties": {
+              "consumes": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "consumed_by": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "adoption_state": {
+                "type": "string",
+                "enum": ["none", "planned", "partial", "active", "mature", "deprecated"]
+              },
+              "compatibility_ref": { "type": "string" },
+              "dependency_pin": { "type": "string" }
+            }
+          },
+          "validation": {
+            "type": "object",
+            "properties": {
+              "ci_ref": { "type": "string" },
+              "local_validator": { "type": "string" },
+              "release_gate": { "type": "string" },
+              "known_gap": { "type": "string" }
+            }
+          },
+          "drift": {
+            "type": "object",
+            "properties": {
+              "risk": {
+                "type": "string",
+                "enum": ["low", "medium", "high", "unknown"]
+              },
+              "review_cadence": { "type": "string" },
+              "review_trigger": { "type": "string" },
+              "last_reviewed": { "type": "string" }
+            }
           }
         }
       }
