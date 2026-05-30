@@ -23,6 +23,21 @@ RECOVERY_DISPOSITIONS = {
     "blocked",
     "superseded",
 }
+OVERLAY_REQUIRED_KEYS = {
+    "overlay_version",
+    "status",
+    "authority_repo",
+    "subject_repo",
+    "created",
+    "purpose",
+    "repo",
+    "estate",
+    "recovery",
+    "adoption",
+    "validation",
+    "drift",
+    "claim_boundary",
+}
 
 
 def expect_mapping(value: object, label: str) -> bool:
@@ -91,6 +106,84 @@ def check_drift(repo_name: str, drift: object) -> int:
     return int(not check_enum(drift.get("risk"), DRIFT_RISKS, f"{repo_name}.drift.risk"))
 
 
+def check_repo_entry(r: object, default_org: str, seen: set[tuple[str, str]] | None = None, label: str = "repo") -> int:
+    bad = 0
+    if not isinstance(r, dict):
+        print(f"ERR: {label} entry must be a mapping/object: {r}", file=sys.stderr)
+        return 1
+
+    for k in ["name", "kind", "manifest"]:
+        if k not in r:
+            print(f"ERR: {label} entry missing {k}: {r}", file=sys.stderr)
+            bad += 1
+
+    name = str(r.get("name", "<missing>"))
+    org = str(r.get("org", default_org))
+    if seen is not None:
+        key = (org, name)
+        if key in seen:
+            print(f"ERR: duplicate repo entry: {org}/{name}", file=sys.stderr)
+            bad += 1
+        seen.add(key)
+
+    bad += not check_enum(r.get("status"), REPO_STATUSES, f"{org}/{name}.status")
+
+    if "related_repos" in r and not expect_list(r["related_repos"], f"{org}/{name}.related_repos"):
+        bad += 1
+    if "provides" in r and not expect_list(r["provides"], f"{org}/{name}.provides"):
+        bad += 1
+
+    if "estate" in r:
+        bad += check_estate(f"{org}/{name}", r["estate"])
+    if "recovery" in r:
+        bad += check_recovery(f"{org}/{name}", r["recovery"])
+    if "adoption" in r:
+        bad += check_adoption(f"{org}/{name}", r["adoption"])
+    if "validation" in r and not expect_mapping(r["validation"], f"{org}/{name}.validation"):
+        bad += 1
+    if "drift" in r:
+        bad += check_drift(f"{org}/{name}", r["drift"])
+    return int(bad)
+
+
+def check_overlay(path: Path, root: Path) -> int:
+    try:
+        overlay = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"ERR: invalid YAML in {path.relative_to(root)}: {exc}", file=sys.stderr)
+        return 1
+
+    label = path.relative_to(root).as_posix()
+    if not expect_mapping(overlay, label):
+        return 1
+    assert isinstance(overlay, dict)
+
+    bad = 0
+    missing = sorted(OVERLAY_REQUIRED_KEYS - set(overlay))
+    if missing:
+        print(f"ERR: {label} missing required overlay keys: {missing}", file=sys.stderr)
+        bad += 1
+
+    subject_repo = str(overlay.get("subject_repo", "<missing>"))
+    repo = overlay.get("repo")
+    bad += check_repo_entry(repo, default_org="SocioProphet", seen=None, label=f"{label}.repo")
+    if isinstance(repo, dict):
+        repo_name = str(repo.get("name", ""))
+        repo_org = str(repo.get("org", "SocioProphet"))
+        full_name = f"{repo_org}/{repo_name}" if repo_name else ""
+        if subject_repo != "<missing>" and subject_repo != full_name:
+            print(f"ERR: {label} subject_repo {subject_repo!r} does not match repo block {full_name!r}", file=sys.stderr)
+            bad += 1
+
+    bad += check_estate(subject_repo, overlay.get("estate"))
+    bad += check_recovery(subject_repo, overlay.get("recovery"))
+    bad += check_adoption(subject_repo, overlay.get("adoption"))
+    if not expect_mapping(overlay.get("validation"), f"{subject_repo}.validation"):
+        bad += 1
+    bad += check_drift(subject_repo, overlay.get("drift"))
+    return int(bad)
+
+
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     inv = root / "inventory" / "repos.yaml"
@@ -118,46 +211,19 @@ def main() -> int:
     default_org = data["org"]
 
     for r in data["repos"]:
-        if not isinstance(r, dict):
-            print(f"ERR: repo entry must be a mapping/object: {r}", file=sys.stderr)
-            bad += 1
-            continue
+        bad += check_repo_entry(r, default_org=default_org, seen=seen)
 
-        for k in ["name", "kind", "manifest"]:
-            if k not in r:
-                print(f"ERR: repo entry missing {k}: {r}", file=sys.stderr)
-                bad += 1
-
-        name = str(r.get("name", "<missing>"))
-        org = str(r.get("org", default_org))
-        key = (org, name)
-        if key in seen:
-            print(f"ERR: duplicate repo entry: {org}/{name}", file=sys.stderr)
-            bad += 1
-        seen.add(key)
-
-        bad += not check_enum(r.get("status"), REPO_STATUSES, f"{org}/{name}.status")
-
-        if "related_repos" in r and not expect_list(r["related_repos"], f"{org}/{name}.related_repos"):
-            bad += 1
-        if "provides" in r and not expect_list(r["provides"], f"{org}/{name}.provides"):
-            bad += 1
-
-        if "estate" in r:
-            bad += check_estate(f"{org}/{name}", r["estate"])
-        if "recovery" in r:
-            bad += check_recovery(f"{org}/{name}", r["recovery"])
-        if "adoption" in r:
-            bad += check_adoption(f"{org}/{name}", r["adoption"])
-        if "validation" in r and not expect_mapping(r["validation"], f"{org}/{name}.validation"):
-            bad += 1
-        if "drift" in r:
-            bad += check_drift(f"{org}/{name}", r["drift"])
+    overlays_dir = root / "inventory" / "estate-overlays"
+    overlay_count = 0
+    if overlays_dir.exists():
+        for path in sorted(overlays_dir.glob("*.yaml")):
+            overlay_count += 1
+            bad += check_overlay(path, root)
 
     if bad:
         return 2
 
-    print(f"OK: inventory structure valid ({len(data['repos'])} repos)")
+    print(f"OK: inventory structure valid ({len(data['repos'])} repos, {overlay_count} estate overlays)")
     return 0
 
 
