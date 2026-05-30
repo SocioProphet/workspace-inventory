@@ -107,6 +107,56 @@ repos:
       review_trigger: recovered thread lacks owner repo or authority artifact
       last_reviewed: "2026-05-30"
 
+  - name: systems-learning-loops
+    kind: knowledge-canon
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: institutional_learning_canon
+    boundary_notes: "Canonical institutional-learning loop surface for source-backed lessons, patterns, countermeasures, doctrine promotions, receipts, and teaching objects."
+    related_repos:
+      - sociosphere
+      - workspace-inventory
+      - ontogenesis
+    provides:
+      - institutional_learning_canon
+      - pattern_library
+      - learning_receipts
+    estate:
+      owner_plane: systems_learning_loops
+      authority_surface: docs/institutional-learning-canon-v0.md
+      doctrine_state: provisional
+      validation_state: none
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after major recovery or doctrine-promotion tranches
+    recovery:
+      recovered_threads:
+        - systems-learning-loops as institutional learning canon
+      disposition: owner_repo_assigned
+      authority_artifact: docs/institutional-learning-canon-v0.md; kb/topics/institutional-learning.yaml; kb/patterns/institutional-amnesia.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes:
+        - lost work recovery map
+      consumed_by:
+        - alexandrian-academy
+        - prophet-platform
+        - sociosphere
+      adoption_state: partial
+      compatibility_ref: kb/receipts/lost-work-recovery-map.receipt.yaml
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: ""
+      release_gate: ""
+      known_gap: taxonomy and receipts are document-backed; schemas and validators deferred until pattern set stabilizes
+    drift:
+      risk: medium
+      review_cadence: after major recovery or doctrine-promotion tranches
+      review_trigger: lessons recur without receipts or authority artifacts
+      last_reviewed: "2026-05-30"
+
   - name: agentplane
     kind: execution-plane
     manifest: "WORKSPACE.yaml"
@@ -199,6 +249,64 @@ repos:
       review_trigger: privacy or memory doctrines gain runtime enforcement or schema changes
       last_reviewed: "2026-05-30"
 
+  - name: Heller-Godel
+    kind: research-foundation
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: clay_framework_core
+    boundary_notes: "Canonical Heller-Godel / Clay-program framework-core and in-repo PFK authority surface; not standard product substrate."
+    related_repos:
+      - Heller-Winters-Theorem
+      - yang-mills
+      - bsd-proof-program
+      - hodge-program-proof
+      - hphd-zeta-mirror-lattice
+      - np-program
+    provides:
+      - clay_framework_core
+      - proof_fabric_kernel
+      - boundary_spectral_grammar
+      - calculus_invariant_character_manuscripts
+    estate:
+      owner_plane: heller_godel_framework_core
+      authority_surface: docs/framework-core/README.md; proof_fabric_kernel/README.md
+      doctrine_state: provisional
+      validation_state: ci
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after Clay-program dependency or framework-core changes
+    recovery:
+      recovered_threads:
+        - Clay proof-fabric kernel alignment
+        - boundary geometry / spectral-boundary grammar
+        - Heller-Godel calculus-invariant character paper
+      disposition: owner_repo_assigned
+      authority_artifact: proof_fabric_kernel/docs/ClayProgram_PFK_ConsumerContract_v0.md; docs/framework-core/boundary-spectral-grammar-v0.md; docs/manuscripts/paper_i_deligne_cohomological_phase_characters.md
+      tracking_ref: SocioProphet/sociosphere#408; SocioProphet/sociosphere#416
+      return_condition: ""
+    adoption:
+      consumes: []
+      consumed_by:
+        - Heller-Winters-Theorem
+        - yang-mills
+        - bsd-proof-program
+        - hodge-program-proof
+        - hphd-zeta-mirror-lattice
+        - np-program
+      adoption_state: partial
+      compatibility_ref: proof_fabric_kernel/docs/ClayProgram_PFK_ConsumerContract_v0.md
+      dependency_pin: consumer repos must pin Heller-Godel commit when claiming PFK compatibility
+    validation:
+      ci_ref: tests/test_proof_fabric_kernel.py
+      local_validator: pytest tests/test_proof_fabric_kernel.py
+      release_gate: ""
+      known_gap: downstream Clay repos must declare dependency pins and native PFK-compatible receipts before claiming mature adoption
+    drift:
+      risk: medium
+      review_cadence: after Clay-program dependency or framework-core changes
+      review_trigger: PFK schema, framework-core, or downstream dependency-pinning changes
+      last_reviewed: "2026-05-30"
+
   - name: socioprophet-standards-storage
     kind: standards
     manifest: "WORKSPACE.yaml"
@@ -219,24 +327,166 @@ repos:
     boundary_notes: "Executable knowledge-context standards, fixtures, verifiers, and transport bindings."
     canonical_source_ref: "standards/knowledge"
     related_repos:
-      - tritrpc
+      - TriTRPC
       - socioprophet-standards-storage
     provides:
       - knowledge_schemas
       - tritrpc_bindings
       - roundtrip_verifiers
 
-  - name: tritrpc
+  - name: TriTRPC
     kind: protocol
     manifest: "WORKSPACE.yaml"
     status: active
     authority_role: transport_protocol
-    boundary_notes: "Canonical deterministic transport/envelope/framing authority."
+    boundary_notes: "Canonical deterministic transport/envelope/framing authority; vNext includes a recovered typed control-plane substrate candidate note without normative wire-format promotion."
     canonical_source_ref: "protocol/tritrpc"
     provides:
       - transport
       - fixtures
       - framing
+      - vnext_control_plane_substrate_candidate
+    estate:
+      owner_plane: tritrpc
+      authority_surface: docs/vnext/control-plane-substrate-recovery-v0.md
+      doctrine_state: draft
+      validation_state: ci
+      adoption_state: planned
+      drift_risk: medium
+      review_cadence: before any vNext normative-promotion decision
+    recovery:
+      recovered_threads:
+        - TriTRPC typed control-plane substrate
+      disposition: owner_repo_assigned
+      authority_artifact: docs/vnext/control-plane-substrate-recovery-v0.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes: []
+      consumed_by:
+        - sociosphere
+        - agentplane
+        - prophet-platform
+        - model-governance-ledger
+      adoption_state: planned
+      compatibility_ref: docs/vnext/control-plane-substrate-recovery-v0.md
+      dependency_pin: ""
+    validation:
+      ci_ref: make verify
+      local_validator: make verify
+      release_gate: ""
+      known_gap: recovery note is architecture-level; no candidate control-plane message family is normative yet
+    drift:
+      risk: medium
+      review_cadence: before any vNext normative-promotion decision
+      review_trigger: vNext protocol, integration, or downstream transport-adoption changes
+      last_reviewed: "2026-05-30"
+
+  - name: slash-topics
+    kind: semantic-membrane
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: governed_topic_pack_membrane
+    boundary_notes: "Governed, signed, replayable topic-pack membrane for scoped search and knowledge surfaces."
+    related_repos:
+      - prophet-platform
+      - ontogenesis
+      - TriTRPC
+      - model-governance-ledger
+    provides:
+      - topic_packs
+      - policy_membranes
+      - deterministic_topic_receipts
+      - personal_intelligence_cell_surface
+    estate:
+      owner_plane: slash_topics
+      authority_surface: docs/governed-topic-pack-membrane-v0.md
+      doctrine_state: draft
+      validation_state: local
+      adoption_state: partial
+      drift_risk: medium
+      review_cadence: after consuming workroom/search adoption
+    recovery:
+      recovered_threads:
+        - slash-topics governed topic-pack membrane
+      disposition: owner_repo_assigned
+      authority_artifact: docs/governed-topic-pack-membrane-v0.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes:
+        - ontogenesis governed intelligence semantics
+        - TriTRPC transport alignment
+      consumed_by:
+        - prophet-platform
+        - sherlock-search
+        - holmes
+      adoption_state: partial
+      compatibility_ref: docs/governed-topic-pack-membrane-v0.md
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: python3 scripts/validate_personal_intelligence_cell_surface.py
+      release_gate: ""
+      known_gap: governed membrane contract is document-backed; generalized topic-pack validator adoption remains future work
+    drift:
+      risk: medium
+      review_cadence: after consuming workroom/search adoption
+      review_trigger: topic-pack schemas, policy membrane behavior, or workroom integration changes
+      last_reviewed: "2026-05-30"
+
+  - name: speechlab
+    kind: lab
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: audio_first_review_surface
+    boundary_notes: "Audio-first review, spoken corpus handling, transcript provenance, listening-mode workflows, and speech-channel confusability testing surface."
+    related_repos:
+      - prophet-platform
+      - alexandrian-academy
+      - systems-learning-loops
+      - ontogenesis
+      - model-governance-ledger
+    provides:
+      - audio_first_review_contract
+      - transcript_provenance_contract
+      - confusability_fixture_surface
+    estate:
+      owner_plane: speechlab
+      authority_surface: docs/audio-first-review-runtime-v0.md
+      doctrine_state: draft
+      validation_state: none
+      adoption_state: planned
+      drift_risk: medium
+      review_cadence: before any runtime transcription or ingestion implementation
+    recovery:
+      recovered_threads:
+        - speechlab audio-first review/runtime surface
+      disposition: owner_repo_assigned
+      authority_artifact: README.md; docs/audio-first-review-runtime-v0.md
+      tracking_ref: SocioProphet/sociosphere#408
+      return_condition: ""
+    adoption:
+      consumes:
+        - ontogenesis privacy and audio-anchor semantics
+        - systems-learning-loops teaching and receipt discipline
+      consumed_by:
+        - prophet-platform
+        - alexandrian-academy
+        - agentplane
+      adoption_state: planned
+      compatibility_ref: docs/audio-first-review-runtime-v0.md
+      dependency_pin: ""
+    validation:
+      ci_ref: ""
+      local_validator: ""
+      release_gate: ""
+      known_gap: no runtime, model, ingestion, storage, or validator implementation yet
+    drift:
+      risk: medium
+      review_cadence: before any runtime transcription or ingestion implementation
+      review_trigger: ASR/TTS model selection, audio ingestion, transcript storage, or memory behavior changes
+      last_reviewed: "2026-05-30"
 
   - name: sourceos-a2a-mcp-bootstrap
     kind: bootstrap
