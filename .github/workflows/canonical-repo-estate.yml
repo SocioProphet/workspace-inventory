@@ -1,6 +1,7 @@
 name: canonical-repo-estate
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - "exports/canonical-repo-estate.v1.0.csv"
