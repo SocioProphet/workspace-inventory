@@ -1,0 +1,103 @@
+overlay_version: 1
+status: draft
+authority_repo: SocioProphet/workspace-inventory
+subject_repo: SocioProphet/prophet-platform
+created: "2026-05-30"
+
+purpose: >-
+  Estate-ledger overlay for the Prophet Platform workroom update contract and
+  runtime-boundary tranche. This records platform-side pre-implementation
+  readiness without claiming a live endpoint, service, persistence model, or
+  workroom mutation behavior.
+
+repo:
+  name: prophet-platform
+  kind: component
+  manifest: WORKSPACE.yaml
+  status: active
+  authority_role: platform_runtime
+  boundary_notes: >-
+    Runtime and deployment hub for platform services. Current Professional
+    Workroom work is contract-aligned and runtime-boundary documented only;
+    live workroom update behavior remains future work.
+  related_repos:
+    - prophet-workspace
+    - sociosphere
+    - workspace-inventory
+    - ontogenesis
+    - slash-topics
+    - speechlab
+    - agentplane
+    - model-governance-ledger
+    - systems-learning-loops
+  provides:
+    - professional_intelligence_manifest
+    - workroom_update_contract_fixtures
+    - workroom_update_runtime_boundary
+    - platform_validation_targets
+
+estate:
+  owner_plane: prophet_platform
+  authority_surface: docs/WORKROOM_UPDATE_RUNTIME_BOUNDARY.md
+  doctrine_state: provisional
+  validation_state: local
+  adoption_state: partial
+  drift_risk: medium
+  review_cadence: before any workroom update endpoint, service, persistence, or agent-mediated mutation path
+
+recovery:
+  recovered_threads:
+    - Prophet Platform workroom update contract lane
+    - Prophet Platform workroom update runtime boundary
+  disposition: owner_repo_assigned
+  authority_artifact: >-
+    docs/WORKROOM_UPDATE_RUNTIME_BOUNDARY.md;
+    contracts/workspace/workroom-update-request.example.json;
+    contracts/workspace/workroom-update-response.accepted.example.json;
+    tools/validate_workroom_update_contract.py;
+    tools/validate_professional_intelligence_manifest.py;
+    professional-intelligence.manifest.yaml
+  tracking_ref: SocioProphet/sociosphere#408
+  return_condition: ""
+
+adoption:
+  consumes:
+    - prophet-workspace Professional Workroom contract
+    - ontogenesis DoNotLearn / DoNotLink doctrine
+    - ontogenesis governed memory representation strata
+    - slash-topics governed topic-pack membrane
+    - speechlab audio-first review runtime contract
+    - systems-learning-loops workroom substrate receipt
+    - workspace-inventory estate overlay lane
+  consumed_by:
+    - sociosphere
+    - prophet-platform runtime implementation future tranche
+  adoption_state: partial
+  compatibility_ref: docs/WORKROOM_UPDATE_RUNTIME_BOUNDARY.md
+  dependency_pin: ""
+
+validation:
+  ci_ref: make validate
+  local_validator: >-
+    make validate-workroom-update-contract;
+    make validate-professional-intelligence-manifest
+  release_gate: ""
+  known_gap: >-
+    Contract fixtures, validators, Make targets, manifest refs, README refs,
+    runtime-boundary doc, and learning receipt exist. No endpoint, service,
+    persistence, policy-verification path, privacy-verification path, live
+    mutation, or runtime receipt sink exists yet.
+
+drift:
+  risk: medium
+  review_cadence: before any workroom update endpoint, service, persistence, or agent-mediated mutation path
+  review_trigger: >-
+    Addition of workroom update schemas, OpenAPI/AsyncAPI/TriTRPC message family,
+    service stub, persistence model, policy/privacy verification, receipt sink,
+    AgentPlane handoff, or demo-readiness claim.
+  last_reviewed: "2026-05-30"
+
+claim_boundary: >-
+  This overlay records pre-implementation platform runtime-boundary state. It
+  does not claim runtime readiness, live service behavior, mutation capability,
+  policy enforcement, privacy enforcement, persistence, or demo readiness.
