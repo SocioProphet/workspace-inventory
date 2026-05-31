@@ -33,6 +33,7 @@ repo:
   provides:
     - professional_intelligence_manifest
     - workroom_update_contract_fixtures
+    - workroom_update_negative_fixture
     - workroom_update_runtime_boundary
     - platform_validation_targets
 
@@ -49,11 +50,13 @@ recovery:
   recovered_threads:
     - Prophet Platform workroom update contract lane
     - Prophet Platform workroom update runtime boundary
+    - Prophet Platform workroom update invalid mutation fixture
   disposition: owner_repo_assigned
   authority_artifact: >-
     docs/WORKROOM_UPDATE_RUNTIME_BOUNDARY.md;
     contracts/workspace/workroom-update-request.example.json;
     contracts/workspace/workroom-update-response.accepted.example.json;
+    contracts/workspace/workroom-update-response.invalid-runtime-mutation.example.json;
     tools/validate_workroom_update_contract.py;
     tools/validate_professional_intelligence_manifest.py;
     professional-intelligence.manifest.yaml
@@ -83,10 +86,10 @@ validation:
     make validate-professional-intelligence-manifest
   release_gate: ""
   known_gap: >-
-    Contract fixtures, validators, Make targets, manifest refs, README refs,
-    runtime-boundary doc, and learning receipt exist. No endpoint, service,
-    persistence, policy-verification path, privacy-verification path, live
-    mutation, or runtime receipt sink exists yet.
+    Contract fixtures, invalid mutation fixture, validators, Make targets,
+    manifest refs, README refs, runtime-boundary doc, and learning receipt
+    exist. No endpoint, service, persistence, policy-verification path,
+    privacy-verification path, live mutation, or runtime receipt sink exists yet.
 
 drift:
   risk: medium
@@ -94,7 +97,8 @@ drift:
   review_trigger: >-
     Addition of workroom update schemas, OpenAPI/AsyncAPI/TriTRPC message family,
     service stub, persistence model, policy/privacy verification, receipt sink,
-    AgentPlane handoff, or demo-readiness claim.
+    AgentPlane handoff, removal of negative fixture coverage, or demo-readiness
+    claim.
   last_reviewed: "2026-05-30"
 
 claim_boundary: >-
