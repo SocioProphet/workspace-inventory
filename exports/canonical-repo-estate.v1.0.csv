@@ -36,9 +36,6 @@ SocioProphet/agent-registry,-,svc.platform.agent-runtime,-,primary
 SocioProphet/agentplane,svc.platform.agent-runtime,"svc.platform.compute-mesh,svc.product.prophet-lattice,svc.product.workroom",-,primary
 SocioProphet/alexandrian-academy,svc.product.academy,-,-,primary
 SocioProphet/api-contracts,-,"svc.workspace.standards,svc.platform.protocol-contract",-,primary
-SocioProphet/atlas_master_bundle_autopilot_fullorchestration,-,svc.product.model-training,-,primary
-SocioProphet/atlas_master_bundle_complete,-,svc.product.model-training,-,primary
-SocioProphet/atlas_os_service_full,-,svc.product.model-training,-,primary
 SocioProphet/bsd-proof-program,-,svc.product.research-program,-,primary
 SocioProphet/cairnpath-mesh,-,svc.platform.memory-graph,-,primary
 SocioProphet/cloudshell-fog,-,svc.managed.cloudshell-fog,-,primary
@@ -109,7 +106,7 @@ SocioProphet/synapseiq,-,svc.platform.query-search,-,primary
 SocioProphet/systems-learning-loops,-,svc.product.academy,-,primary
 SocioProphet/tritrpc-notes-archive,-,svc.platform.protocol-contract,-,primary
 SocioProphet/workspace-inventory,svc.workspace.inventory,-,-,primary
-SocioProphet/yang-mills,svc.product.research-program,-,primary
+SocioProphet/yang-mills,svc.product.research-program,-,-,primary
 SourceOS-Linux/BearBrowser,"svc.substrate.browser-surface,svc.app.bearbrowser",svc.product.search-feed,"svc.substrate.browser-surface,svc.app.bearbrowser",primary
 SourceOS-Linux/TurtleTerm,"svc.substrate.operator-terminal,svc.app.turtleterm",svc.workspace.developer-cli,"svc.substrate.operator-terminal,svc.app.turtleterm",primary
 SourceOS-Linux/agent-machine,svc.substrate.agent-machine,svc.platform.compute-mesh,svc.substrate.agent-machine,primary
