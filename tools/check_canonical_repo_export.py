@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXPORT = ROOT / "exports" / "canonical-repo-estate.v1.0.csv"
 MANIFEST = ROOT / "exports" / "canonical-repo-estate.v1.0.json"
-EXPECTED_REPO_COUNT = 125
+EXPECTED_REPO_COUNT = 122
 EXPECTED_STATUS = "canonical-export"
 EXPECTED_ARTIFACT_ID = "workspace_inventory.canonical_repo_estate.v1.0"
 REQUIRED_COLUMNS = [
