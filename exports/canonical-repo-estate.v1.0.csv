@@ -112,7 +112,7 @@ SourceOS-Linux/TurtleTerm,"svc.substrate.operator-terminal,svc.app.turtleterm",s
 SourceOS-Linux/agent-machine,svc.substrate.agent-machine,svc.platform.compute-mesh,svc.substrate.agent-machine,primary
 SourceOS-Linux/agent-term,-,"svc.substrate.operator-terminal,svc.app.turtleterm",-,primary
 SourceOS-Linux/bsd-proof-program,-,svc.product.research-program,-,primary
-SourceOS-Linux/homebrew-tap,svc.substrate.package-distribution,-,primary
+SourceOS-Linux/homebrew-tap,svc.substrate.package-distribution,-,-,primary
 SourceOS-Linux/nix-openclaw,-,svc.substrate.package-distribution,-,primary
 SourceOS-Linux/openclaw,-,svc.substrate.package-distribution,-,primary
 SourceOS-Linux/sourceos-boot,svc.substrate.boot-release,svc.substrate.image-build,-,primary
