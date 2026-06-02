@@ -1,5 +1,7 @@
 name: inventory
 
+# Observable CI probe: 122-repo canonical export
+
 on:
   workflow_dispatch:
   pull_request:
