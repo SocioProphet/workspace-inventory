@@ -21,7 +21,6 @@ SociOS-Linux/timeserieslab,-,svc.managed.labs,-,primary
 SociOS-Linux/translationlab,-,svc.managed.labs,-,primary
 SociOS-Linux/videolab,-,svc.managed.labs,-,primary
 SociOS-Linux/workstation-contracts,-,svc.managed.boot-evidence,"svc.managed.workstation-automation,svc.managed.boot-evidence,svc.managed.desktop-shell,svc.app.socios-web",primary
-SocioProphet/AgenticaForge,-,svc.platform.agent-runtime,-,primary
 SocioProphet/Heller-Dirac,-,svc.product.research-program,-,primary
 SocioProphet/Heller-Einstein,-,svc.product.research-program,-,primary
 SocioProphet/Heller-Godel,-,svc.product.research-program,-,primary
