@@ -2,7 +2,7 @@
   "artifact_id": "workspace_inventory.canonical_repo_estate.v1.0",
   "status": "canonical-export",
   "export_path": "exports/canonical-repo-estate.v1.0.csv",
-  "repo_count": 122,
+  "repo_count": 121,
   "service_register_source": "SocioProphet/sociosphere:architecture/service-register/canonical-repo-estate.v1.0.csv",
   "removed_from_go_forward": [
     "SocioProphet/Shining-Apple",
@@ -13,5 +13,5 @@
   "consolidation_candidates": [
     "SocioProphet/sourceos-a2a-mcp-bootstrap"
   ],
-  "notes": "Canonical go-forward repo estate export for SocioSphere service-register validation. Atlas bundle repositories are no longer primary go-forward repos and are tracked by SocioSphere Atlas reconciliation artifacts."
+  "notes": "Canonical go-forward repo estate export for SocioSphere service-register validation. One external candidate is excluded from the primary estate. Atlas bundle repositories are no longer primary go-forward repos and are tracked by SocioSphere Atlas reconciliation artifacts."
 }
