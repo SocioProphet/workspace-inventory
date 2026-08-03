@@ -38,7 +38,7 @@ Represent the Prophet Intelligence Foundry as a first-class estate program. Unti
 2. `model-router` owns runtime model/service route decisions. It must not own training, release approval, or workspace mutation.
 3. `agent-machine` owns local/cluster machine runtime facts and receipts. It must not replace AgentPlane, Policy Fabric, Agent Registry, or the model-router.
 4. `TurtleTerm`, `BearBrowser`, `agent-term`, and `sourceos-devtools` are operator/runtime surfaces. They must emit evidence and preserve policy boundaries rather than becoming policy authority.
-5. `smart-tree` remains a candidate inspection tool until its MCP, hook, and memory surfaces pass supply-chain and guardrail review.
+5. `smart-tree` is a **frozen, severed research artifact** (third-party-derived fork of `8b-is/smart-tree`) as of 2026-08-03. The only estate-consumed capability — the Prophet Understand repo-intelligence emitter — was lifted into `prophet-platform` (PR #1252); no estate repo depends on this checkout, its `st` binary, or its MCP server. Its MCP, hook, dashboard, and daemon surfaces never passed supply-chain/guardrail review and must not be run.
 6. `HolographMe` is the self-owned human digital twin governance plane for consent, capability proofs, delegated permissions, and mission-fit projection. It must not be reduced to a generic profile service.
 
 ## Required contract spine
