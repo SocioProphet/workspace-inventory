@@ -186,6 +186,24 @@ repos:
       - contracts
       - telemetry
 
+  - name: socbase
+    kind: platform
+    manifest: "WORKSPACE.yaml"
+    status: active
+    authority_role: sovereign_base_platform
+    boundary_notes: "Sovereign base platform: authentication/data gateway and governed acquisition backend; a first-party base/producer that downstream surfaces consume, not the workspace controller or standards authority."
+    related_repos:
+      - prophet-platform
+      - policy-fabric
+      - agent-machine
+      - mcp-a2a-zero-trust
+    canonical_source_ref: "platform/socbase"
+    provides:
+      - auth_gateway
+      - data_gateway
+      - governed_acquisition_backend
+      - agent_machine_governance_surface
+
   - name: prophet-core-catalog
     kind: catalog
     manifest: "WORKSPACE.yaml"

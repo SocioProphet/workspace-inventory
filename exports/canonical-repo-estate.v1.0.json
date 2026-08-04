@@ -8,10 +8,11 @@
     "SocioProphet/Shining-Apple",
     "SocioProphet/atlas_master_bundle_autopilot_fullorchestration",
     "SocioProphet/atlas_master_bundle_complete",
-    "SocioProphet/atlas_os_service_full"
+    "SocioProphet/atlas_os_service_full",
+    "SocioProphet/smart-tree"
   ],
   "consolidation_candidates": [
     "SocioProphet/sourceos-a2a-mcp-bootstrap"
   ],
-  "notes": "Canonical go-forward repo estate export for SocioSphere service-register validation. One external candidate is excluded from the primary estate. Atlas bundle repositories are no longer primary go-forward repos and are tracked by SocioSphere Atlas reconciliation artifacts."
+  "notes": "Canonical go-forward repo estate export for SocioSphere service-register validation. One external candidate is excluded from the primary estate. Atlas bundle repositories are no longer primary go-forward repos and are tracked by SocioSphere Atlas reconciliation artifacts. smart-tree is a frozen, severed third-party-derived research artifact (ADR-0001 rule 5); per the external-candidate boundary it no longer appears as a canonical go-forward row and is tracked here. SocioProphet/socbase (sovereign base platform) is added as a first-party primary repo, keeping the canonical count at 121."
 }

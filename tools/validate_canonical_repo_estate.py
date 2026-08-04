@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT / "exports" / "canonical-repo-estate.v1.0.csv"
 MANIFEST_PATH = ROOT / "exports" / "canonical-repo-estate.v1.0.json"
-EXPECTED_REPO_COUNT = 125
+EXPECTED_REPO_COUNT = 121
 
 
 def main() -> int:
