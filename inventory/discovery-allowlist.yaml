@@ -1,0 +1,17 @@
+# Discovery allowlist
+#
+# Repos in the SocioProphet GitHub org that are intentionally NOT part of the
+# curated canonical inventory and must not be reported as un-triaged by
+# tools/discover_org_repos.py. This is the explicit "exclude" side of triage;
+# the "curate-in" side is inventory/repos.yaml + the canonical export.
+#
+# Each entry is a repo name (or org/name) plus a human-readable reason. Keep this
+# minimal: a repo belongs here only when there is a deliberate decision that it is
+# not a canonical go-forward product. Prefer curating into repos.yaml, or recording
+# severance in exports/canonical-repo-estate.v1.0.json (removed_from_go_forward),
+# over silently allowlisting.
+discovery_allowlist_version: 1
+org: SocioProphet
+allowlist:
+  - name: .github
+    reason: "Org-level community-health/meta repository, not a product surface."
