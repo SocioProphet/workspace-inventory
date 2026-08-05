@@ -6,7 +6,7 @@ note: 'Machine-owned. Repos present in the GitHub org but absent from the curate
   (+ canonical export) or exclude via inventory/discovery-allowlist.yaml. Do not hand-edit;
   refreshed by .github/workflows/repo-discovery.yml.'
 listing_possibly_truncated: false
-untriaged_count: 59
+untriaged_count: 42
 untriaged:
 - name: asterion
   url: https://github.com/SocioProphet/asterion
@@ -26,14 +26,6 @@ untriaged:
   url: https://github.com/SocioProphet/cotoami-spec
 - name: cybernetic-genesis
   url: https://github.com/SocioProphet/cybernetic-genesis
-- name: deliverable-engine
-  url: https://github.com/SocioProphet/deliverable-engine
-- name: evidence-intake-kernel
-  url: https://github.com/SocioProphet/evidence-intake-kernel
-- name: federation-adapters
-  url: https://github.com/SocioProphet/federation-adapters
-- name: file-search-app
-  url: https://github.com/SocioProphet/file-search-app
 - name: flux
   url: https://github.com/SocioProphet/flux
 - name: ghostspace-spec
@@ -54,16 +46,10 @@ untriaged:
   url: https://github.com/SocioProphet/idea-ontology
 - name: Knowledge_Agent
   url: https://github.com/SocioProphet/Knowledge_Agent
-- name: mellumwork
-  url: https://github.com/SocioProphet/mellumwork
 - name: metadata-standards
   url: https://github.com/SocioProphet/metadata-standards
-- name: needs-wants-instrument
-  url: https://github.com/SocioProphet/needs-wants-instrument
 - name: NewsClient
   url: https://github.com/SocioProphet/NewsClient
-- name: noetica-impair
-  url: https://github.com/SocioProphet/noetica-impair
 - name: noetica-mcp
   url: https://github.com/SocioProphet/noetica-mcp
 - name: orion-field-intelligence
@@ -74,18 +60,10 @@ untriaged:
   url: https://github.com/SocioProphet/porter-self-hosted
 - name: prophet-aggregate
   url: https://github.com/SocioProphet/prophet-aggregate
-- name: prophet-health
-  url: https://github.com/SocioProphet/prophet-health
 - name: prophet-mesh
   url: https://github.com/SocioProphet/prophet-mesh
-- name: prophet-news
-  url: https://github.com/SocioProphet/prophet-news
 - name: prophet-sheaf
   url: https://github.com/SocioProphet/prophet-sheaf
-- name: prophet-sheaf-diff
-  url: https://github.com/SocioProphet/prophet-sheaf-diff
-- name: prophet-sheaf-hellgraph
-  url: https://github.com/SocioProphet/prophet-sheaf-hellgraph
 - name: prophet-truth
   url: https://github.com/SocioProphet/prophet-truth
 - name: prophet-workspace
@@ -104,22 +82,10 @@ untriaged:
   url: https://github.com/SocioProphet/socioprophet-seed-deck
 - name: socioprophet-web-medium
   url: https://github.com/SocioProphet/socioprophet-web-medium
-- name: socios-web
-  url: https://github.com/SocioProphet/socios-web
 - name: socius-kg
   url: https://github.com/SocioProphet/socius-kg
-- name: sourceos-asset-ontology
-  url: https://github.com/SocioProphet/sourceos-asset-ontology
-- name: sovereign-botwall
-  url: https://github.com/SocioProphet/sovereign-botwall
-- name: sovereign-compute-fabric
-  url: https://github.com/SocioProphet/sovereign-compute-fabric
-- name: sp-orchestrator
-  url: https://github.com/SocioProphet/sp-orchestrator
 - name: spine-integration-pack
   url: https://github.com/SocioProphet/spine-integration-pack
-- name: three-space-reconstruction
-  url: https://github.com/SocioProphet/three-space-reconstruction
 - name: tritfabric
   url: https://github.com/SocioProphet/tritfabric
 - name: Twitterr
